@@ -34,7 +34,7 @@ declare namespace Protocol {
     description?: string;
     forms?: Form[];
     protocol?: string;
-    baseKeyword?: string;
+    base?: string;
     securityAbstract: {[name: string]: SecurityAbstract};
   }
 

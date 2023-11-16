@@ -2,20 +2,24 @@
     "title": "mygardenthing",
     "id": "urn:dev:wot:org:eclipse:thingweb:mygardenThings",
     "securityDefinitions":{
-        "bearer_sc":{
-            "scheme":"bearer"
+        "userpass_sc":{
+            "scheme":"userpass"
+        },
+        "apikey_sc":{
+            "scheme":"apikey"
         }
     },
     "protocolList": { 
         "httpServer": {
             "protocol": "http",
-            "baseKeyword": "http://example.org",  
+            "base": "http://example.org",  
             "contentType": "json",
             "securityAbstract": {
+                "userpass_sc": {}
             }
         }
     },
-    "security":"bearer_sc",
+    "security":"userpass_sc",
     "description": "Automate the gardening water system based on weather prediction, temperature and soil humidity",
     "properties": {
         "temperature": {

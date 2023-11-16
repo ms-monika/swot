@@ -85,6 +85,12 @@ class Thing {
   removeProtocolSecMapping(protocol: string, name: string) {
     delete this.protocolList[protocol].metadata.securityAbstract[name]
   }
+
+  updateProtocolSecMapping(protocol: string, securityConfig: any) {
+    console.log(protocol, securityConfig)
+    Object.assign(this.protocolList[protocol].metadata.securityAbstract, securityConfig)
+  }
+
   getProtocolServer(protocol: string) {
     for (let key in this.protocolList) {
       if (this.protocolList[key].metadata.protocol == protocol) {
@@ -106,6 +112,9 @@ class Thing {
       }
     }*/
   }
+  updateSecurityVocab(security: string): void {
+    this.security = security
+  }
   addsecurity(definition: any, security: string): void {
     //this.security = security
     this.securityDefinitions[security] = definition;
@@ -120,6 +129,16 @@ class Thing {
     //this.security = security
     //console.log(this.securityDefinitions)
   }
+
+  updateSecurity(definition: any, security: string): void {
+    this.securityDefinitions[security] = definition;
+  }
+  getSecuritySchemeDef(security: string) {
+    if(this.securityDefinitions.hasOwnProperty(security))
+      return this.securityDefinitions[security].scheme
+    return null
+  }
+
   getSecurityScheme() {
     return this.securityDefinitions[this.security].scheme
   }

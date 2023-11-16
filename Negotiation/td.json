@@ -10,7 +10,7 @@
     "protocolList": { 
         "httpServer": {
             "protocol": "http",
-            "baseKeyword": "http://example.org",  
+            "base": "http://example.org",  
             "contentType": "json",
             "securityAbstract": {
                 "basic_sc": {
@@ -32,14 +32,14 @@
             "type": "array",
             "readOnly": true,
             "default": [
-                "userpasskeyword",
+                "userpass",
                 "apikey",
                 "bearer"
             ],
             "items": {
                 "type": "string",
                 "enum": [
-                    "userpasskeyword",
+                    "userpass",
                     "apikey",
                     "bearer"
                 ]
@@ -67,7 +67,7 @@
                                 }
                             }
                         },
-                        "userpasskeyword": {
+                        "userpass": {
                             "type": "object",
                             "properties": {
                                 "in": {
@@ -97,7 +97,7 @@
                                 }
                             }
                         },
-                        "userpasskeyword": {
+                        "userpass": {
                             "type": "object",
                             "additionalProperties": false,
                             "properties": {
@@ -170,6 +170,32 @@
                 "required": [
                     "thingsID",
                     "securityPayload"
+                ]
+            },
+            "output": {
+                "type": "object",
+                "description": "Returns success or error based on the negotiation"
+            }
+        },        
+        "updateSecurity": {
+            "description": "Request to Update the Security Scheme",
+            "input": {
+                "thingsID": {
+                    "type": "string"
+                },
+                "securityDefinition": {
+                    "type": "object",
+                    "minProperties": 1
+                },
+                "protocolList": {
+                    "type": "object",
+                    "minProperties": 1
+                },
+                "security": {
+                    "type": "string"
+                },
+                "required": [
+                    "thingsID"
                 ]
             },
             "output": {

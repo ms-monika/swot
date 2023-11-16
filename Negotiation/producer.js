@@ -72,8 +72,13 @@ server.start().then(() => {
             if (verify.verifyProtocolSecurity(payload.protocolList, defaultList)) { // Protocol Security Mapping verification
               console.log("verification Successful")
               // Update the TD
-              thingJson.addsecurity(payload.securityDefinition, key)   
-              thingJson.addProtocolSecMapping('httpServer',payload.protocolList['http'])
+              thingJson.addsecurity(payload.securityDefinition, key) 
+              for (var protocol in payload.protocolList) {
+                if (payload.protocolList[protocol][key]) {
+                  serverName = thingJson.getProtocolServer(protocol)
+                  thingJson.addProtocolSecMapping(serverName, payload.protocolList[protocol])
+                }
+              }
             }
           }
         }
@@ -95,9 +100,21 @@ server.start().then(() => {
   actionFunc.invokeAction.on('updateSecurity', (payload) => {
     console.log("Update process is triggered")
     if (verify.verifyThingId(server.getThingsID(), payload.thingsID)) {  // Thing ID verification
+      supportedScheme = servient.getProperty('securitySchemeSupported')
+      console.log(payload.security)
+      if (payload.security !== undefined) {
+        schema = thingJson.getSecuritySchemeDef(payload.security)
+        if(supportedScheme.includes(schema))
+          thingJson.updateSecurityVocab(payload.security)
+        else {
+          console.log('Security Update failed. Wrong Configuration')
+        }
+      }
       for (var key in payload.securityDefinition) {
         if (payload.securityDefinition.hasOwnProperty(key)) {
           var schemeValue = payload.securityDefinition[key].scheme;
+        } else {          
+          console.log('Wrong Configuration')
         }
         if (supportedScheme.includes(schemeValue)) { // Security Scheme Supported verification
           if (payload.protocolList) {
@@ -105,10 +122,20 @@ server.start().then(() => {
             if (verify.verifyProtocolSecurity(payload.protocolList, defaultList)) { // Protocol Security Mapping verification
               console.log("verification Successful")
               // Update the TD
-              thingJson.addsecurity(payload.securityDefinition, key)   
-              thingJson.addProtocolSecMapping('httpServer',payload.protocolList['http'])
+              thingJson.updateSecurity(payload.securityDefinition, key)  
+              for (var protocol in payload.protocolList) {                
+                if (payload.protocolList[protocol][key]) {
+                  serverName = thingJson.getProtocolServer(protocol)
+                  thingJson.updateProtocolSecMapping(serverName,payload.protocolList[protocol])            
+                }
+              }
+            } else {          
+              console.log('Wrong Configuration')
             }
           }
+        }
+        else {          
+          console.log('Wrong Configuration')
         }
       }
     }

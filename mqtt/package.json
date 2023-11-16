@@ -1,0 +1,51 @@
+{
+  "name": "webofthing",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "dependencies": {
+    "@okta/jwt-verifier": "^0.0.12",
+    "aedes": "^0.49.0",
+    "ajv": "^7.0.4",
+    "axios": "^1.1.3",
+    "body-parser": "^1.20.1",
+    "btoa": "^1.2.1",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "digest-client": "^0.0.7",
+    "dnssd": "^0.4.1",
+    "dotenv": "^16.0.3",
+    "mosca": "^2.8.3",
+    "mqtt": "^4.3.7",
+    "node-digest-auth-client": "^1.0.6",
+    "prettier": "^2.2.1",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "@testdeck/mocha": "^0.1.2",
+    "@types/body-parser": "^1.19.0",
+    "@types/chai": "^4.2.18",
+    "@types/dnssd": "^0.4.1",
+    "@types/express": "^4.17.11",
+    "@types/express-ws": "^3.0.0",
+    "@types/node": "16.4.13",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-unused-imports": "^1.1.4",
+    "mocha": "^9.1.1",
+    "prettier": "^2.3.2",
+    "ts-node": "10.1.0",
+    "typescript": "4.4.3",
+    "typescript-standard": "^0.3.36",
+    "uuid": "^8.3.2"
+  }
+}

@@ -1,0 +1,24 @@
+{
+    "@context": "https://www.w3.org/2019/wot/td/v1",
+    "title": "MQTT-Test",
+    "id": "urn:dev:wot:mqtt:counter",
+    "actions" : {
+        "resetCounter": {
+            "description": "Reset counter",
+            "forms": [
+                {"href": "mqtt://test.mosquitto.org:1883/MQTT-Test/actions/resetCounter"}
+            ]
+        }
+    },
+    "events": {
+        "counterEvent": {
+            "description": "Counter Value",
+            "data": {
+                "type": "integer"
+            },
+            "forms": [
+                {"href": "mqtt://test.mosquitto.org:1883/MQTT-Test/events/counterEvent"}
+            ]
+        }
+    }
+}

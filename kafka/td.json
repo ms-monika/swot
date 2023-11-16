@@ -1,0 +1,75 @@
+{
+    "title": "mygardenthing",
+    "id": "urn:dev:wot:org:eclipse:thingweb:mygardenThings",
+    "securityDefinitions":{
+        "saslPlain":{
+            "scheme":"plain"
+        }
+    },
+    "security":"saslPlain",
+    "description": "Automate the gardening water system based on weather prediction, temperature and soil humidity",
+    "properties": {
+        "temperature": {
+            "title": "Temperature",
+            "description": "A number value based on the weather prediction api between -20°C to 60°C",
+            "type": "number",
+            "readOnly": true,
+            "minimum": -20,
+            "maximum": 60,
+            "unit": "Celcius"
+        },
+        "soilHumidity": {
+            "title": "Humidty of Soil",
+            "description": "A number value used to measure the humdity of the soil in percentage",
+            "type": "number",
+            "readOnly": true,
+            "minimum": 0,
+            "maximum": 100,
+            "unit": "percentage"
+        },
+        "humidityThreshold": {
+            "title": "Humidty Threshold",
+            "description": "A number value used to set the threshold for humdity of the soil in percentage",
+            "type": "object",
+            "properties": {
+                "threshold": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "readOnly": false,
+                    "writeOnly": false
+                }
+            },
+            "readOnly": false,
+            "writeOnly": false,
+            "unit": "percentage"
+        },
+        "state": {
+            "title": "State of the system",
+            "description": "Describes the state of the system for watering",
+            "type": "string",
+            "writeOnly": true,
+            "enum": ["manualWatering", "automaticWatering"]
+        }
+    },
+    "actions": {
+        "startSprinkler": {
+            "title": "Start Sprinkler",
+            "description": "Starts the sprinkler"
+        },
+        "stopSprinkler": {
+            "title": "Stop Sprinkler",
+            "description": "Stops the sprinkler"
+        }
+    },
+    "events": {
+        "tooDry": {
+            "title": "Low Humidity",
+            "description": "It is fired when the humidity reaches the set humidityThreshold"
+        },
+        "tooWet": {
+            "title": "High Humidity",
+            "description": "It is fired when the humidity reaches 90 percent"
+        }
+    }
+}

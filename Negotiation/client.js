@@ -11,13 +11,13 @@ const agent = new https.Agent({
 addPayload = {
   "thingsID": "urn:dev:wot:org:eclipse:thingweb:mygardenThings",
   "securityDefinition": {
-    "userpasskeyword_sc": {
-      "scheme": "userpasskeyword"        
+    "userpass_sc": {
+      "scheme": "userpass"        
     }
   },
   "protocolList": {
     "http": {
-      "userpasskeyword_sc": {
+      "userpass_sc": {
         "in": "header"
       }
     }
@@ -45,7 +45,25 @@ removePayload = {
     "protocol": ["http"]
   }
 }
-axios.get('https://localhost:8080/servient', { httpsAgent: agent }).then((response) => {
+updatePayload = {
+  "thingsID": "urn:dev:wot:org:eclipse:thingweb:mygardenThings",
+  "securityDefinition": {
+    "userpass_sc": {
+      "scheme": "userpass"        
+    }
+  },
+  "protocolList": {
+    "http": {
+      "userpass_sc": {
+        "in": "header"
+      }
+    }
+  },
+  "security": "kl"
+}
+
+function triggerAdd() {
+  axios.get('https://localhost:8080/servient', { httpsAgent: agent }).then((response) => {
   if (response.status === 200) {
     let td = response.data
     let payload = { "threshold": 89 }
@@ -59,7 +77,7 @@ axios.get('https://localhost:8080/servient', { httpsAgent: agent }).then((respon
 }).catch((e) => {
   console.error(e)
 });
-
+}
 // function to remove
 function triggerRemove() {
   axios.get('https://localhost:8080/servient', { httpsAgent: agent }).then((response) => {
@@ -72,15 +90,12 @@ function triggerRemove() {
   console.error(e)
 });
 }
-
-
-// function to remove
+// function to update
 function triggerUpdate() {
   axios.get('https://localhost:8080/servient', { httpsAgent: agent }).then((response) => {
   if (response.status === 200) {
     let td = response.data
-    let payload = { "threshold": 89 }
-    invokeActionCall(td, 'removeSecurity', removePayload)
+    invokeActionCall(td, 'updateSecurity', updatePayload)
   }
 }).catch((e) => {
   console.error(e)
@@ -124,3 +139,5 @@ function invokeActionCall(td, action, payload) {
     console.error(e)
   })
 }
+
+triggerUpdate()
